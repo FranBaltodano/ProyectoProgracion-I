@@ -4,6 +4,7 @@ Mano::Mano() {
     apuesta = 0;
     estado = ACTIVA;
 }
+//Hola prueba de git sirve
 
 void Mano::agregarCarta(Carta carta) {
     cartas.push_back(carta);
