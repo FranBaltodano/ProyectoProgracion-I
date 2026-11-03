@@ -1,10 +1,11 @@
-#include <iostream>
+
 #include <vector>
 #include "Carta.h"
 
 using namespace std;
 
 class Mazo {
+
 private:
     vector<Carta> cartas;
     int siguiente;
@@ -14,6 +15,6 @@ public:
 
     void construirBaraja();
     Carta repartirCarta();
-    bool estaAgotado();
+    bool zapatoAgotado();
+
 };
-`
