@@ -122,17 +122,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClInclude Include="..\src\baraja.h" />
-    <ClInclude Include="..\src\Carta.h" />
-    <ClInclude Include="..\src\mano.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\src\Baraja.cpp" />
-    <ClCompile Include="..\src\carta.cpp" />
-    <ClCompile Include="..\src\main.cpp" />
-    <ClCompile Include="..\src\mano.cpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

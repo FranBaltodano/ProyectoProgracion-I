@@ -13,3 +13,6 @@ Release/
 
 # Logs
 *.log
+# No subir los duplicados de Visual, solo se usan para compilar local
+ProyectoProgra/*.cpp
+ProyectoProgra/*.h
