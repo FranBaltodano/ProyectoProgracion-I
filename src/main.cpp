@@ -5,69 +5,83 @@
 
 using namespace std;
 
-int main() {
+void mostrarCarta(Carta carta) {
+    cout << carta.getValor() << " de " << carta.getPalo() << endl;
+}
 
-    Mazo mazo;
-    Jugador jugador(1000);
-    Crupier crupier;
+// Juega una mano del jugador. Devuelve -1 si el jugador decide salir.
+int jugarMano(Jugador& jugador, Mazo& mazo, int i) {
 
-    int opcion = 0;
+    while (true) {
 
-    cout << "Bienvenido al juego de Blackjack!" << endl;
+        // Se vuelve a pedir la referencia en cada vuelta porque dividir agrega manos
+        Mano& mano = jugador.getManos()[i];
 
-    // Repartir cartas iniciales al jugador
-    jugador.pedirCarta(0, mazo.repartirCarta());
-    jugador.pedirCarta(0, mazo.repartirCarta());
+        cout << "\n--- Mano " << i + 1 << " ---" << endl;
+        cout << "Puntos: " << mano.calcularPuntos() << endl;
 
-    // Repartir dos cartas al crupier
-    crupier.recibirCarta(mazo.repartirCarta());
-    crupier.recibirCarta(mazo.repartirCarta());
-
-    // Turno del jugador
-    do {
-
-        cout << "\nTu mano tiene "
-            << jugador.getManos()[0].calcularPuntos()
-            << " puntos." << endl;
-
-        if (jugador.getManos()[0].esBlackjack()) {
-            cout << "Blackjack!" << endl;
-            break;
+        if (mano.sePaso()) {
+            cout << "Te pasaste de 21 en esta mano." << endl;
+            return 0;
         }
 
-        if (jugador.getManos()[0].sePaso()) {
-            cout << "Te pasaste de 21!" << endl;
-            break;
+        if (mano.calcularPuntos() == 21) {
+            cout << "21!" << endl;
+            jugador.plantarse(i);
+            return 0;
         }
 
-        cout << "\n1. Pedir carta" << endl;
+        if (mano.estaPlantada()) {
+            return 0;
+        }
+
+        cout << "1. Pedir carta" << endl;
         cout << "2. Plantarse" << endl;
         cout << "3. Doblar" << endl;
         cout << "4. Dividir" << endl;
         cout << "5. Salir" << endl;
-
         cout << "Seleccione una opcion: ";
+
+        int opcion;
         cin >> opcion;
 
         switch (opcion) {
 
-        case 1:
-            jugador.pedirCarta(0, mazo.repartirCarta());
+        case 1: {
+            Carta carta = mazo.repartirCarta();
+            jugador.pedirCarta(i, carta);
+            cout << "Recibes: ";
+            mostrarCarta(carta);
             break;
+        }
 
         case 2:
-            jugador.plantarse(0);
-            break;
+            jugador.plantarse(i);
+            return 0;
 
-        case 3:
-            jugador.doblar(0, mazo.repartirCarta());
-            break;
+        case 3: {
+            Carta carta = mazo.repartirCarta();
+            jugador.doblar(i, carta);
+            cout << "Doblas y recibes: ";
+            mostrarCarta(carta);
+            jugador.plantarse(i);
+            return 0;
+        }
 
         case 4:
-            if (jugador.dividir(0)) {
-                cout << "Mano dividida!" << endl;
-                cout << "La opcion de jugar ambas manos requiere completar su turno." << endl;
-                jugador.plantarse(0);
+            if (jugador.dividir(i)) {
+                cout << "Mano dividida! Ahora juegas 2 manos." << endl;
+
+                // Una carta nueva para cada mano
+                Carta c1 = mazo.repartirCarta();
+                jugador.pedirCarta(i, c1);
+                cout << "Mano " << i + 1 << " recibe: ";
+                mostrarCarta(c1);
+
+                Carta c2 = mazo.repartirCarta();
+                jugador.pedirCarta(1, c2);
+                cout << "Mano 2 recibe: ";
+                mostrarCarta(c2);
             }
             else {
                 cout << "No puedes dividir esta mano." << endl;
@@ -76,48 +90,99 @@ int main() {
 
         case 5:
             cout << "Saliendo del juego..." << endl;
-            return 0;
+            return -1;
 
         default:
             cout << "Opcion invalida." << endl;
         }
+    }
+}
 
-    } while (!jugador.getManos()[0].sePaso()
-        && !jugador.getManos()[0].estaPlantada());
+int main() {
 
-    // Turno del crupier
-    if (!jugador.getManos()[0].sePaso()) {
+    Mazo mazo;
+    Jugador jugador(1000);
+    Crupier crupier;
 
-        cout << "\n===== TURNO DEL CRUPIER =====" << endl;
+    cout << "Bienvenido al juego de Blackjack!" << endl;
 
-        crupier.jugarTurno(mazo);
+    // Cartas iniciales del jugador
+    for (int i = 0; i < 2; i++) {
+        Carta carta = mazo.repartirCarta();
+        jugador.pedirCarta(0, carta);
+        cout << "Recibes: ";
+        mostrarCarta(carta);
+    }
 
-        // Mostrar resultados
-        cout << "Crupier tiene "
-            << crupier.getMano().calcularPuntos()
-            << " puntos." << endl;
+    // Cartas del crupier
+    Carta visible = mazo.repartirCarta();
+    crupier.recibirCarta(visible);
+    cout << "El crupier muestra: ";
+    mostrarCarta(visible);
+    crupier.recibirCarta(mazo.repartirCarta()); // carta oculta
 
-        cout << "Tu mano tiene "
-            << jugador.getManos()[0].calcularPuntos()
-            << " puntos." << endl;
+    // Blackjack de entrada
+    if (jugador.getManos()[0].esBlackjack()) {
+        cout << "\nBLACKJACK! Ganaste "
+            << jugador.getManos()[0].getApuesta() * 1.5 << endl;
+        return 0;
+    }
 
-        if (crupier.getMano().sePaso()) {
-            cout << "El crupier se paso! Ganaste!" << endl;
-        }
-        else if (jugador.getManos()[0].calcularPuntos() >
-            crupier.getMano().calcularPuntos()) {
-            cout << "Ganaste!" << endl;
-        }
-        else if (jugador.getManos()[0].calcularPuntos() <
-            crupier.getMano().calcularPuntos()) {
-            cout << "Perdiste!" << endl;
-        }
-        else {
-            cout << "Empate!" << endl;
+    // Turno del jugador: juega cada mano en orden (si dividio, son 2)
+    for (int i = 0; i < jugador.getManos().size(); i++) {
+        if (jugarMano(jugador, mazo, i) == -1) {
+            return 0;
         }
     }
-    else {
-        cout << "Te pasaste de 21. Perdiste!" << endl;
+
+    int totalManos = jugador.getManos().size();
+
+    // Si solo hay una mano y llego a 21, gana de una vez
+    if (totalManos == 1 && jugador.getManos()[0].calcularPuntos() == 21) {
+        cout << "\n21! Ganaste " << jugador.getManos()[0].getApuesta() << endl;
+        return 0;
+    }
+
+    // Revisar si todas las manos se pasaron
+    bool algunaViva = false;
+    for (int i = 0; i < totalManos; i++) {
+        if (!jugador.getManos()[i].sePaso()) {
+            algunaViva = true;
+        }
+    }
+
+    if (!algunaViva) {
+        cout << "\nTe pasaste en todas tus manos. Perdiste!" << endl;
+        return 0;
+    }
+
+    // Turno del crupier
+    cout << "\n===== TURNO DEL CRUPIER =====" << endl;
+    crupier.jugarTurno(mazo);
+    int puntosCrupier = crupier.getMano().calcularPuntos();
+    cout << "Crupier tiene " << puntosCrupier << " puntos." << endl;
+
+    // Resultado de cada mano
+    cout << "\n===== RESULTADOS =====" << endl;
+    for (int i = 0; i < totalManos; i++) {
+
+        Mano& mano = jugador.getManos()[i];
+        int puntos = mano.calcularPuntos();
+
+        cout << "Mano " << i + 1 << " (" << puntos << " puntos): ";
+
+        if (mano.sePaso()) {
+            cout << "Te pasaste. Perdiste " << mano.getApuesta() << endl;
+        }
+        else if (crupier.getMano().sePaso() || puntos > puntosCrupier) {
+            cout << "Ganaste " << mano.getApuesta() << endl;
+        }
+        else if (puntos < puntosCrupier) {
+            cout << "Perdiste " << mano.getApuesta() << endl;
+        }
+        else {
+            cout << "Empate. Recuperas tu apuesta." << endl;
+        }
     }
 
     return 0;

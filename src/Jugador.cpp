@@ -2,7 +2,9 @@
 
 Jugador::Jugador(double apuestaInicial) {
     apuesta = apuestaInicial;
-    manos.push_back(Mano()); // Inicia con una mano por defecto
+    Mano primera;
+    primera.setApuesta(apuestaInicial);
+    manos.push_back(primera);
 }
 
 void Jugador::pedirCarta(int indiceMano, Carta nuevaCarta) {
@@ -12,19 +14,30 @@ void Jugador::pedirCarta(int indiceMano, Carta nuevaCarta) {
 }
 
 void Jugador::plantarse(int indiceMano) {
-    // Lógica básica de turno finalizado para esta mano
+    if (indiceMano >= 0 && indiceMano < manos.size()) {
+        manos[indiceMano].setEstado(PLANTADA);
+    }
 }
 
 void Jugador::doblar(int indiceMano, Carta nuevaCarta) {
-    apuesta *= 2;
-    pedirCarta(indiceMano, nuevaCarta);
+    if (indiceMano >= 0 && indiceMano < manos.size()) {
+        manos[indiceMano].setApuesta(manos[indiceMano].getApuesta() * 2);
+        pedirCarta(indiceMano, nuevaCarta);
+    }
 }
 
+// Separa las dos cartas iguales en dos manos (maximo 2 manos)
 bool Jugador::dividir(int indiceMano) {
+    if (manos.size() >= 2) {
+        return false;
+    }
     if (indiceMano >= 0 && indiceMano < manos.size()) {
         if (manos[indiceMano].puedeDividirse()) {
-            Mano nuevaMano;
-            manos.push_back(nuevaMano);
+            Carta movida = manos[indiceMano].quitarUltimaCarta();
+            Mano nueva;
+            nueva.agregarCarta(movida);
+            nueva.setApuesta(manos[indiceMano].getApuesta());
+            manos.push_back(nueva);
             return true;
         }
     }

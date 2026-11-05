@@ -15,4 +15,3 @@ public:
     string getValor();
     string getPalo();
 };
-#pragma once

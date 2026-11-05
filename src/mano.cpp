@@ -4,10 +4,15 @@ Mano::Mano() {
     apuesta = 0;
     estado = ACTIVA;
 }
-//Hola prueba de git sirve
 
 void Mano::agregarCarta(Carta carta) {
     cartas.push_back(carta);
+}
+
+Carta Mano::quitarUltimaCarta() {
+    Carta ultima = cartas.back();
+    cartas.pop_back();
+    return ultima;
 }
 
 int Mano::calcularPuntos() {
@@ -33,19 +38,25 @@ int Mano::calcularPuntos() {
     return total;
 }
 
-bool Mano::esBlackjack() {
+int Mano::valor() {
+    return calcularPuntos();
+}
 
+bool Mano::esBlackjack() {
     return cartas.size() == 2 && calcularPuntos() == 21;
 }
 
 bool Mano::sePaso() {
-
     return calcularPuntos() > 21;
 }
 
 bool Mano::estaPlantada() {
-
     return estado == PLANTADA;
+}
+
+bool Mano::puedeDividirse() {
+    return cartas.size() == 2 &&
+        cartas[0].getValor() == cartas[1].getValor();
 }
 
 void Mano::setApuesta(double monto) {

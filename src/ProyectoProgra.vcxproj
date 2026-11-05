@@ -18,6 +18,23 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="baraja.h" />
+    <ClInclude Include="Carta.h" />
+    <ClInclude Include="Crupier.h" />
+    <ClInclude Include="Jugador.h" />
+    <ClInclude Include="mano.h" />
+    <ClInclude Include="Mazo.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Baraja.cpp" />
+    <ClCompile Include="carta.cpp" />
+    <ClCompile Include="crupier.cpp" />
+    <ClCompile Include="Jugador.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="mano.cpp" />
+    <ClCompile Include="Mazo.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>

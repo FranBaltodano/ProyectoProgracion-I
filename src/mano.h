@@ -20,13 +20,16 @@ public:
     Mano();
 
     void agregarCarta(Carta carta);
+    Carta quitarUltimaCarta();
     int calcularPuntos();
+    int valor();
     bool esBlackjack();
     bool sePaso();
     bool estaPlantada();
+    bool puedeDividirse();
 
     void setApuesta(double monto);
     double getApuesta();
 
     void setEstado(EstadoMano nuevoEstado);
-}; #pragma once
+};

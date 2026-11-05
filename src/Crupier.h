@@ -2,6 +2,7 @@
 #define CRUPIER_H
 
 #include "Mano.h"
+#include "Carta.h"
 #include "Mazo.h"
 
 class Crupier {
@@ -10,9 +11,12 @@ private:
 
 public:
     Crupier();
+
+    void recibirCarta(Carta carta);
     void jugarTurno(Mazo& mazo);
     bool puedePedirCarta();
-    Mano getMano();
+    Mano& getMano();
+    int getPuntos();
 };
 
 #endif

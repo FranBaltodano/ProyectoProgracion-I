@@ -1,21 +1,27 @@
 #include "Crupier.h"
 
 Crupier::Crupier() {
-    // La mano inicia vacía
+}
+
+void Crupier::recibirCarta(Carta carta) {
+    mano.agregarCarta(carta);
 }
 
 bool Crupier::puedePedirCarta() {
-    // Regla clásica de Blackjack: el crupier pide si tiene menos de 17
-    return mano.valor() < 17;
+    return mano.calcularPuntos() < 17;
 }
 
+// El crupier pide carta hasta llegar a 17 o mas
 void Crupier::jugarTurno(Mazo& mazo) {
-    while (puedePedirCarta()) {
-        Carta c = mazo.repartirCarta();
-        mano.agregarCarta(c);
+    while (puedePedirCarta() && !mazo.zapatoAgotado()) {
+        mano.agregarCarta(mazo.repartirCarta());
     }
 }
 
-Mano Crupier::getMano() {
+Mano& Crupier::getMano() {
     return mano;
+}
+
+int Crupier::getPuntos() {
+    return mano.calcularPuntos();
 }
