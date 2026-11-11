@@ -4,15 +4,14 @@
 **Repositorio:** https://github.com/FranBaltodano/ProyectoProgracionI
 
 ## Integrantes
-*   Franciny Baltodano
-*   Emilie Castrillo
+*   Franciny Baltodano Morales
+*   Emilie Castrillo Espinoza
 *   Yarath Valeria Rojas
-*   Yeikel Orias
-*   Hans Molina
+*   Yeikel Orias Chavarria
+*   Hans Gamboa Molina
 
 ## Descripción
-Juego de cartas implementado en C++ con clases Baraja, Carta y Mano. Proyecto desarrollado como evaluación del curso de Programación I.
-
+Juego de cartas implementado en C++  con clases Carta, Mazo, Mano, Jugador, Crupier y Juego. Forma parte de nuestro proyecto de Programación I.
 ## Cómo compilar y ejecutar
 Ver guía completa en `docs/compilacion.md`
 
