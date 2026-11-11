@@ -32,4 +32,6 @@ public:
     double getApuesta();
 
     void setEstado(EstadoMano nuevoEstado);
+
+    void mostrar();
 };

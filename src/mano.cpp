@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Mano.h"
 
 Mano::Mano() {
@@ -69,4 +70,15 @@ double Mano::getApuesta() {
 
 void Mano::setEstado(EstadoMano nuevoEstado) {
     estado = nuevoEstado;
+}
+
+// Muestra las cartas de la mano y sus puntos
+void Mano::mostrar() {
+    for (int i = 0; i < cartas.size(); i++) {
+        cout << cartas[i].getValor() << " de " << cartas[i].getPalo();
+        if (i < cartas.size() - 1) {
+            cout << ", ";
+        }
+    }
+    cout << " (" << calcularPuntos() << " puntos)" << endl;
 }
