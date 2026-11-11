@@ -5,6 +5,7 @@
 #include "Carta.h"
 #include "Mazo.h"
 
+
 class Crupier {
 private:
     Mano mano;

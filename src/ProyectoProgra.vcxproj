@@ -22,6 +22,7 @@
     <ClInclude Include="baraja.h" />
     <ClInclude Include="Carta.h" />
     <ClInclude Include="Crupier.h" />
+    <ClInclude Include="Juego.h" />
     <ClInclude Include="Jugador.h" />
     <ClInclude Include="mano.h" />
     <ClInclude Include="Mazo.h" />
@@ -30,6 +31,7 @@
     <ClCompile Include="Baraja.cpp" />
     <ClCompile Include="carta.cpp" />
     <ClCompile Include="crupier.cpp" />
+    <ClCompile Include="juego.cpp" />
     <ClCompile Include="Jugador.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mano.cpp" />
