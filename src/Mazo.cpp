@@ -10,18 +10,18 @@ Mazo::Mazo() {
 }
 
 void Mazo::construirBaraja() {
-
     cartas.clear();
     siguiente = 0;
 
     string palos[4] = { "Corazones", "Diamantes", "Treboles", "Picas" };
-    string valores[13] = { "A", "2", "3", "4", "5", "6", "7",
-                           "8", "9", "10", "J", "Q", "K" };
+    string valores[13] = { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K" };
 
-    for (int p = 0; p < 4; p++) {
-        for (int v = 0; v < 13; v++) {
-            Carta nuevaCarta(valores[v], palos[p]);
-            cartas.push_back(nuevaCarta);
+    for (int m = 0; m < 6; m++) {
+        for (int p = 0; p < 4; p++) {
+            for (int v = 0; v < 13; v++) {
+                Carta nuevaCarta(valores[v], palos[p]);
+                cartas.push_back(nuevaCarta);
+            }
         }
     }
 
@@ -31,7 +31,6 @@ void Mazo::construirBaraja() {
 }
 
 Carta Mazo::repartirCarta() {
-
     if (zapatoAgotado()) {
         return cartas[0];
     }
