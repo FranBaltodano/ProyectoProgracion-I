@@ -5,7 +5,7 @@
 using namespace std;
 
 Mazo::Mazo() {
-    siguiente = 0;
+siguiente = 0;
     construirBaraja();
 }
 

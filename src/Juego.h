@@ -11,6 +11,7 @@ private:
     double saldo;
     double apuesta;
     double seguro;
+
     int leerEnteroValido(int min, int max, std::string mensaje);
     bool esAs(Carta c);
     void mostrarManos();
@@ -20,6 +21,7 @@ private:
     void resolverBlackjackInicial(bool bjJ, bool bjC, bool quiereSeguro);
     void jugarTurnoCrupier();
     void resolverResultados();
+
 public:
     Juego();
     void jugar();
