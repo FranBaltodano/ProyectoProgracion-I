@@ -1,6 +1,8 @@
 #include "Juego.h"
 #include <iostream>
+
 using namespace std;
+
 Juego::Juego() : jugador(0), saldo(1000), apuesta(0), seguro(0) {}
 int Juego::leerEnteroValido(int min, int max, string mensaje) {
     int v = 0;

@@ -1,5 +1,4 @@
-#ifndef CRUPIER_H
-#define CRUPIER_H
+#pragma once
 
 #include "Mano.h"
 #include "Carta.h"
@@ -19,5 +18,3 @@ public:
     Mano& getMano();
     int getPuntos();
 };
-
-#endif

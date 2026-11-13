@@ -1,6 +1,4 @@
-#ifndef JUGADOR_H
-#define JUGADOR_H
-
+#pragma once
 #include <vector>
 #include "Mano.h"
 #include "Carta.h"
@@ -22,5 +20,3 @@ public:
     double getApuesta() const;
     void setApuesta(double nuevaApuesta);
 };
-
-#endif
