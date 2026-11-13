@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="baraja.h" />
     <ClInclude Include="Carta.h" />
     <ClInclude Include="Crupier.h" />
     <ClInclude Include="Juego.h" />
@@ -28,7 +27,6 @@
     <ClInclude Include="Mazo.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Baraja.cpp" />
     <ClCompile Include="carta.cpp" />
     <ClCompile Include="crupier.cpp" />
     <ClCompile Include="juego.cpp" />
