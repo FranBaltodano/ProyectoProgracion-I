@@ -13,7 +13,7 @@ int Juego::leerEnteroValido(int min, int max, string mensaje) {
 }
 bool Juego::esAs(Carta c) { return c.getValor() == "A"; }
 void Juego::mostrarManos() {
-    cout << "\n--- TUS MANOS ---" << endl;
+    cout << " TUS MANOS " << endl;
     for (int i = 0; i < (int)jugador.getManos().size(); i++) {
         cout << "Mano " << i + 1 << ": ";
         jugador.getManos()[i].mostrar();
@@ -114,7 +114,7 @@ void Juego::resolverResultados() {
     cout << "Saldo final: " << saldo << endl;
 }
 void Juego::jugar() {
-    cout << "=== BLACKJACK ===" << endl;
+    cout << " BLACKJACK " << endl;
     cout << "Tu saldo: " << saldo << endl;
     apuesta = pedirApuesta();
     cout << "Apostaste " << apuesta << ". Saldo restante: " << saldo << endl;

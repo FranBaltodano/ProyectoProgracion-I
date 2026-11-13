@@ -17,7 +17,7 @@ public:
     void doblar(int indiceMano, Carta nuevaCarta);
     bool dividir(int indiceMano);
 
-    // Getters y Setters
+  
     std::vector<Mano>& getManos();
     double getApuesta() const;
     void setApuesta(double nuevaApuesta);

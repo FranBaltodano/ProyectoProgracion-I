@@ -25,7 +25,6 @@ void Mazo::construirBaraja() {
         }
     }
 
-    // Barajar (para probar dividir, comenta estas 3 lineas)
     random_device rd;
     mt19937 generador(rd());
     shuffle(cartas.begin(), cartas.end(), generador);
